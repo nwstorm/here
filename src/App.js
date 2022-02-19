@@ -1,3 +1,6 @@
+import { Route } from "wouter";
+import "./App.css";
+import Testing from "./pages/Testing";
 import Home from "./pages/Home";
 import { ChakraProvider } from "@chakra-ui/react";
 
