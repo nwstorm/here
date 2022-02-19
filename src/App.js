@@ -1,7 +1,6 @@
 import { Route } from "wouter";
 import "./App.css";
 import Testing from "./pages/Testing";
-import Compose from "./pages/Compose";
 import Home from "./pages/Home";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useEffect } from "react";
