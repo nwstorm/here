@@ -1,5 +1,7 @@
+import { Grid } from "@chakra-ui/react";
 import PostsList from "../components/PostsList";
 
 export default function Home() {
-  return PostsList();
+  const postsList = PostsList();
+  return <Grid>{postsList}</Grid>;
 }
