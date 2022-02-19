@@ -34,6 +34,7 @@ function SignUp() {
 
       verifier.verify().then(() => setRecaptcha(verifier));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
