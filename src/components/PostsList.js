@@ -1,4 +1,4 @@
-import { Stat, StatLabel, StatNumber, StatHelpText } from "@chakra-ui/react";
+import { Stat, StatLabel, StatNumber, StatHelpText, Box, Center } from "@chakra-ui/react";
 
 export default function PostsList(props) {
   const postsList = [
@@ -8,10 +8,14 @@ export default function PostsList(props) {
 
   const listItems = postsList.map((post) => {
     return (
-      <Stat key={post.title}>
-        <StatLabel>{post.title}</StatLabel>
-        <StatHelpText>{post.body}</StatHelpText>
-      </Stat>
+        <Center key={post.title}>
+        <Box w='95%' bg="tomato" mt={3}>
+        <Stat key={post.title}>
+          <StatLabel>{post.title}</StatLabel>
+          <StatHelpText>{post.body}</StatHelpText>
+        </Stat>
+        </Box>
+      </Center>
     );
   });
 
