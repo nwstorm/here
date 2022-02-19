@@ -3,8 +3,14 @@ import "./App.css";
 import Testing from "./pages/Testing";
 import Home from "./pages/Home";
 import { ChakraProvider } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { getPosts } from "./firebase";
 
 function App() {
+  useEffect(() => {
+    getPosts(data => console.log(data));
+  }, []);
+
   // eslint-disable-next-line no-unused-vars
   const getLocation = () => {
     if (!navigator.geolocation) {
