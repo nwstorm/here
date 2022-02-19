@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input, Button, Center, Textarea } from '@chakra-ui/react'
+import { Input, Button, Textarea } from '@chakra-ui/react'
 
 export default function Compose() {
   const [title, setTitle] = useState('')
