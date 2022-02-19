@@ -8,7 +8,7 @@ two coordinates in meters.
 
 Heavily sourced from https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 */
-export const isWithinCoord = (source, location) => {
+export const getDistance = (source, location) => {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(location.lat - source.lat);
   var dLon = deg2rad(location.lon - source.lon); 

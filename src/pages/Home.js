@@ -28,7 +28,7 @@ export default function Home() {
     <>
     {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
     <Grid>
-      <Compose />
+      <Compose location={location} />
     </Grid>
     {location &&
       <Box color='black'>
