@@ -24,19 +24,15 @@ export default function Home() {
     }
   }, [])
 
-  const compose = Compose();
-
   return (
     <>
     {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
     <Grid>
-      {compose}
+      <Compose location={location} />
     </Grid>
     {location &&
       <Box color='black'>
-        <PostsList
-          location={location}
-        />
+        <PostsList location={location} />
       </Box>
     }
     </>

@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { Input, Button, Textarea } from '@chakra-ui/react'
+import { addPost } from '../firebase'
 
-export default function Compose() {
+export default function Compose({ location }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
   const handleClick = () => {
-    console.log({ title, description })
+    addPost(title, description, { lat: location.latitude, lon: location.longitude })
+    setTitle('')
+    setDescription('')
   }
 
   return (
