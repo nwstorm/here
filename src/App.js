@@ -1,5 +1,4 @@
 import { Route } from 'wouter';
-import logo from './logo.svg';
 import './App.css';
 import Testing from './pages/Testing';
 
@@ -17,6 +16,7 @@ function App() {
   }
   return (
     <>
+      <h1>Hello</h1>
       <Route path="/testing" component={Testing} />
       <Route path="/waho" component={Testing} />
     </>
