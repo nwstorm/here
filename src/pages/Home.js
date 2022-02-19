@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
-import { Grid } from "@chakra-ui/react";
-import Compose from "./Compose";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import PostsList from "../components/PostsList";
-import { Box, Container } from '@chakra-ui/react'
+import CreatePostModal from "../components/CreatePostModal";
+import {
+  Box,
+  Container,
+  IconButton,
+  useDisclosure,
+} from '@chakra-ui/react'
 
 
 export default function Home() {
   const [location, setLocation] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure()
   
   // Initialize geolocation tracking
   useEffect(() => {
@@ -25,16 +32,31 @@ export default function Home() {
   }, [])
 
   return (
-    <Container maxWidth="90%">
-      {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
-      <Grid>
-        <Compose location={location} />
-      </Grid>
-      {location &&
-        <Box color='black'>
-          <PostsList location={location} />
-        </Box>
-      }
-    </Container>
+    <>
+      <Container maxWidth="90%">
+        {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
+        {location &&
+          <Box color='black'>
+            <PostsList location={location} />
+          </Box>
+        }
+      </Container>
+
+      <IconButton
+        isRound
+        size="lg"
+        pos="fixed"
+        right="2em"
+        bottom="2em"
+        icon={<FontAwesomeIcon icon={faPlus} />}
+        onClick={onOpen}
+      />
+
+      <CreatePostModal
+        location={location}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
+    </>
   );
 }
