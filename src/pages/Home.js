@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Grid } from "@chakra-ui/react";
 import Compose from "./Compose";
 import PostsList from "../components/PostsList";
-import { Box } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 
 
 export default function Home() {
@@ -25,16 +25,16 @@ export default function Home() {
   }, [])
 
   return (
-    <>
-    {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
-    <Grid>
-      <Compose location={location} />
-    </Grid>
-    {location &&
-      <Box color='black'>
-        <PostsList location={location} />
-      </Box>
-    }
-    </>
+    <Container maxWidth="90%">
+      {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
+      <Grid>
+        <Compose location={location} />
+      </Grid>
+      {location &&
+        <Box color='black'>
+          <PostsList location={location} />
+        </Box>
+      }
+    </Container>
   );
 }
