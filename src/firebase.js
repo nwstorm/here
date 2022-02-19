@@ -33,17 +33,18 @@ export const getPosts = async (callback) => {
   return onSnapshot(q, (querySnapshot) => {
     const posts = [];
     querySnapshot.forEach((doc) => {
-      posts.push({...doc.data(), id: doc.id});
+      posts.push({ ...doc.data(), id: doc.id });
     });
-    callback(posts)
+    callback(posts);
   });
-}
+};
 
 // Add a post
-export const addPost = async (title, body, coords) => {
-  await addDoc(collection(db, 'posts'), {
+export const addPost = async (title, body, time, coords) => {
+  await addDoc(collection(db, "posts"), {
     title,
     body,
+    time,
     coords,
   });
-}
+};
