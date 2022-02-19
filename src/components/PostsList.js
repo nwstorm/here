@@ -1,4 +1,4 @@
-import { Stat, StatLabel, StatNumber, StatHelpText, Box, Center } from "@chakra-ui/react";
+import { Stat, StatLabel, StatHelpText } from "@chakra-ui/react";
 
 export default function PostsList(props) {
   const postsList = [
