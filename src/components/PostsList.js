@@ -18,7 +18,7 @@ export default function PostsList({ location }) {
     )
   }
 
-  const listItems = posts.filter(post => isWithin(post.coords)).map((post) => {
+  const listItems = posts.filter(post => isWithin(post.coords) < 10).map((post) => {
     return (
       <Center key={post.title}>
         <Box w='95%' bg="tomato" mt={3}>
@@ -26,6 +26,7 @@ export default function PostsList({ location }) {
           <StatLabel>{post.title}</StatLabel>
           <StatHelpText>{post.body}</StatHelpText>
           <StatHelpText>{post.coords.lat}, {post.coords.lon}</StatHelpText>
+          <StatHelpText>Distance: {isWithin(post.coords)}</StatHelpText>
         </Stat>
         </Box>
       </Center>

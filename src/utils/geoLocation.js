@@ -3,8 +3,8 @@ File to contain all the utilities we need to calculate distances and all that ja
 */
 
 /*
-Takes in a source coord (object with fields lat and long) and location coord, and determines whether
-the location coordinates are within 200 meters of the source.
+Takes in a source coord (object with fields lat and long) and location coord, and returns the distance between the
+two coordinates in meters.
 
 Heavily sourced from https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 */
@@ -19,7 +19,7 @@ export const isWithinCoord = (source, location) => {
     ; 
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c * 1000;
-  return d < 200;
+  return d;
 }
 
 function deg2rad(deg) {
