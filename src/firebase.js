@@ -26,7 +26,7 @@ export const getPosts = async (callback) => {
   return onSnapshot(q, (querySnapshot) => {
     const posts = [];
     querySnapshot.forEach((doc) => {
-      posts.push(doc.data().title);
+      posts.push(doc.data());
     });
     callback(posts)
   });
