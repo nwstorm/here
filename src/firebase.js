@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { collection, query, getFirestore, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,6 +26,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Snapshot listener that will invoke the callback function provided as an argument
 export const getPosts = async (callback) => {
   const q = query(collection(db, "posts"));
 
@@ -29,5 +36,14 @@ export const getPosts = async (callback) => {
       posts.push(doc.data());
     });
     callback(posts)
+  });
+}
+
+// Add a post
+export const addPost = async (title, body, coords) => {
+  await addDoc(collection(db, 'posts'), {
+    title,
+    body,
+    coords,
   });
 }
