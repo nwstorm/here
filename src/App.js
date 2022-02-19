@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const getLocation = () => {
     if (!navigator.geolocation) {
       console.log("Geolocation is not supported by your browser");
