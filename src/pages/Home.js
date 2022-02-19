@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import Compose from "./Compose";
 import PostsList from "../components/PostsList";
 import { Box } from '@chakra-ui/react'
