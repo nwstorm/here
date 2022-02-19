@@ -23,7 +23,6 @@ function App() {
       <Route path="/testing" component={Testing} />
       <Route path="/waho" component={Testing} />
       <Route path="/home" component={Home} />
-      <Route path="/compose" component={Compose} />
     </ChakraProvider>
   );
 }
