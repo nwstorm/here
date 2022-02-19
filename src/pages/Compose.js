@@ -8,8 +8,6 @@ export default function Compose({ location }) {
 
   const handleClick = () => {
     addPost(title, description, { lat: location.latitude, lon: location.longitude })
-    setTitle('')
-    setDescription('')
   }
 
   return (
