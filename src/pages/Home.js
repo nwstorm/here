@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
-import { Box, Container, IconButton, useDisclosure, Text, VStack, Stack} from "@chakra-ui/react";
+import { Box, Container, IconButton, useDisclosure, VStack, Stack, Heading} from "@chakra-ui/react";
 import TagsModal from "../components/TagsModal";
 import {React} from "react";
 
@@ -78,9 +78,9 @@ return ( <>
 
   {loading? <>
    <VStack loading={loading} spacing={100} align='center'>
-    <Text fontSize='32px' color="#319795">Glad ur here!</Text>
+    <Heading color="#035B21" fontSize='32px'>Glad you are here!</Heading>
     <Box bg='tomato' h='75%' w='75%' p={10}>Insert animation here</Box>
-    <Text fontSize='18px' color="#319795" >Collecting Acorns...</Text>
+    <Heading color="#035B21" fontSize='18px'>Collecting Acorns...</Heading>
     </VStack>
   </> : <> 
   <Container maxWidth="90%">
