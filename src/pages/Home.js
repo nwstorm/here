@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
-import { Box, Container, IconButton, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  IconButton,
+  Stack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React from "react";
+import TagsModal from "../components/TagsModal";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenSettings,
+    onOpen: onOpenSettings,
+    onClose: onCloseSettings,
+  } = useDisclosure();
 
   // Initialize geolocation tracking
   useEffect(() => {
@@ -32,10 +44,17 @@ export default function Home() {
     <>
       <Container maxWidth="90%">
         {location && (
-          <p>
-            Your location is {location.latitude}, {location.longitude} (accuracy
-            of {location.accuracy})
-          </p>
+          <Stack direction={["column", "row"]} spacing="24px">
+            <p>
+              Your location is {location.latitude}, {location.longitude}{" "}
+              (accuracy of {location.accuracy})
+            </p>
+            <IconButton
+              isRound
+              icon={<FontAwesomeIcon icon={faUserGear} />}
+              onClick={onOpenSettings}
+            />
+          </Stack>
         )}
         {location && (
           <Box color="black">
@@ -43,7 +62,6 @@ export default function Home() {
           </Box>
         )}
       </Container>
-
       <IconButton
         isRound
         size="lg"
@@ -53,8 +71,8 @@ export default function Home() {
         icon={<FontAwesomeIcon icon={faPlus} />}
         onClick={onOpen}
       />
-
       <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
+      <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}
     </>
   );
 }
