@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 import { useEffect, useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { getPosts, updatePost } from "../firebase";
@@ -54,6 +54,11 @@ export default function PostsList({ location }) {
             />
             　{post.upvoteCount} votes　
           </p>
+          <Flex columnGap="4px" direction="row" flexWrap="wrap">
+            {post.tags.map(tag => (
+              <Badge key={tag}>{tag}</Badge>
+            ))}
+          </Flex>
         </Box>
       );
     });

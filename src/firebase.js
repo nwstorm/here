@@ -49,11 +49,12 @@ export const updatePost = async (id, upvoteCount) => {
 };
 
 // Add a post
-export const addPost = async (title, body, time, coords) => {
+export const addPost = async (title, body, time, tags, coords) => {
   await addDoc(collection(db, "posts"), {
     title,
     body,
     time,
+    tags,
     coords,
     upvoteCount: 0,
   });
