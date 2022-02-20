@@ -17,7 +17,7 @@ export default function PostsList({ location }) {
       title: post.title,
       description: post.body,
       position: "top-right",
-      status: "info",
+      status: "warning",
       duration: 9000,
       isClosable: true,
     });
@@ -77,12 +77,9 @@ export default function PostsList({ location }) {
     })
     .map((post) => {
       return (
-        <Box p="6" borderWidth="1px" key={post.id} mt={4}>
-          <Heading>{post.title}</Heading>
-          <p>{post.body}</p>
-          <p>
-            {post.coords.lat}, {post.coords.lon}
-          </p>
+        <Box p="10px" key={post.id} mt={4} boxShadow="lg" color="darkGreen">
+          <Heading as="h3" size="md" color="darkGreen">{post.title}</Heading>
+          <Text>{post.body}</Text>
           <p>
             <FontAwesomeIcon icon={faLocationDot} />　{distance(post.coords)}m
           </p>
@@ -95,10 +92,9 @@ export default function PostsList({ location }) {
           </p>
           <Flex columnGap="4px" direction="row" flexWrap="wrap">
             {post.tags.map((tag) => (
-              <Badge key={tag}>{tag}</Badge>
+              <Badge key={tag} bg="darkGreen" color="white" textTransform="capitalize">{tag}</Badge>
             ))}
           </Flex>
-          <Text>{post.creationTime}</Text>
         </Box>
       );
     });

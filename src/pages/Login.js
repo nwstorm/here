@@ -75,7 +75,7 @@ function PhoneNumberVerification({ recaptcha }) {
           ml="8px"
           bg="darkGreen"
           color="white"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: "carrot" }}
           onClick={signIn}
         >
           Sign In
@@ -90,7 +90,7 @@ function PhoneNumberVerification({ recaptcha }) {
             ml="8px"
             bg="darkGreen"
             color="white"
-            _hover={{ bg: "orange" }}
+            _hover={{ bg: "carrot" }}
             onClick={verifyCode}
           >
             Verify Code

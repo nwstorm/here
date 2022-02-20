@@ -22,11 +22,14 @@ const theme = extendTheme({
   colors: {
     lightGreen: "#FBFFF1",
     darkGreen: "#035B21",
-    orange: "#FF6D01",
+    carrot: "#FF6D01",
   },
   fonts: {
     heading: "Recoleta, sans-serif",
     body: "HK Grotesk, sans-serif",
+  },
+  shadows: {
+    lg: "0 10px 15px -3px rgba(3, 91, 33, 0.1), 0 4px 6px -2px rgba(3, 91, 33, 0.05)",
   },
 });
 
