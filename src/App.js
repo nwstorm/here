@@ -11,6 +11,7 @@ import {
   browserLocalPersistence,
 } from "firebase/auth";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 
 // Initialize auth
 const auth = getAuth();
@@ -42,6 +43,7 @@ function App() {
       <AuthContext.Provider value={value}>
         <Route path="/" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
       </AuthContext.Provider>
     </ChakraProvider>
   );
