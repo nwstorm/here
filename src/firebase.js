@@ -10,6 +10,8 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import moment from 'moment'
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -56,6 +58,7 @@ export const addPost = async (title, body, time, tags, coords) => {
     time,
     tags,
     coords,
+    creationTime: moment(new Date()).format('MMMM Do YYYY, h:mm:ss a'),
     upvoteCount: 0,
   });
 };
