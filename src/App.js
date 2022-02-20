@@ -15,7 +15,7 @@ setPersistence(auth, browserLocalPersistence)
 
 const theme = extendTheme({
   fonts: {
-    heading: 'HK Grotesk, sans-serif',
+    heading: 'Recoleta, sans-serif',
     body: 'HK Grotesk, sans-serif',
   },
 })
