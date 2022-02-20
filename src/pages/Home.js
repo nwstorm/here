@@ -1,91 +1,36 @@
-import { useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
+import LoginModal from "../components/LoginModal";
 import {
   Box,
+  Button,
   Container,
   IconButton,
   useDisclosure,
 } from '@chakra-ui/react'
 import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  setPersistence,
-  browserLocalPersistence,
+  onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
-
-const auth = getAuth()
-setPersistence(auth, browserLocalPersistence)
-  .then(res => console.log(res))
-  .catch(err => console.log(err))
-
-function SignUp() {
-  const [recaptcha, setRecaptcha] = useState(null);
-  const element = useRef(null);
-
-  useEffect(() => {
-    if (!recaptcha) {
-      const verifier = new RecaptchaVerifier(element.current, {
-        size: 'invisible',
-      }, auth)
-
-      verifier.verify().then(() => setRecaptcha(verifier));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <>
-      {recaptcha && <PhoneNumberVerification recaptcha={recaptcha} />}
-      <div ref={element}></div>
-    </>
-  );
-}
-
-function PhoneNumberVerification({ recaptcha }) {
-  const [phone, setPhone] = useState('')
-  const [confirmationResult, setConfirmationResult] = useState(null)
-  const [code, setCode] = useState('')
-
-  const phoneNumber = `+1${phone}`;
-
-  const signIn = async () => {
-    setConfirmationResult(await signInWithPhoneNumber(auth, phoneNumber, recaptcha));
-  };
-
-  const verifyCode = async () => {
-    try {
-      const result = await confirmationResult.confirm(code);
-      console.log(result.user);
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
-  return (
-    <>
-      <input value={phone} onChange={(e) => setPhone(e.target.value)} />
-      <button onClick={signIn}>Sign In</button>
-
-      {confirmationResult && (
-        <div>
-          <label>Verify code</label>
-          <br />
-          <input value={code} onChange={(e) => setCode(e.target.value)} />
-
-          <button onClick={verifyCode}>Verify Code</button>
-        </div>
-      )}
-    </>
-  )
-}
+import { AuthContext } from "../utils/auth";
 
 export default function Home() {
-  const [location, setLocation] = useState([]);
+  const [location, setLocation] = useState([])
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: isOpenLogin, onOpen: onOpenLogin, onClose: onCloseLogin } = useDisclosure()
+  const { auth, user, setUser } = useContext(AuthContext)
+
+  // Auth state change listener
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser(user)
+    } else {
+      setUser(null)
+    }
+  });
   
   // Initialize geolocation tracking
   useEffect(() => {
@@ -103,10 +48,25 @@ export default function Home() {
     }
   }, [])
 
+  const clickSignOut = () => {
+    signOut(auth).then(() => {
+      console.log('Sign out successful')
+      setUser(null)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
   return (
     <>
-      <SignUp />
       <Container maxWidth="90%">
+        {user ?
+          <>
+            <Button onClick={clickSignOut}>Logout</Button>
+            <p>Phone number: {user.phoneNumber}</p>
+          </>
+        : 
+          <Button onClick={onOpenLogin}>Login</Button>}
         {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
         {location &&
           <Box color='black'>
@@ -129,6 +89,11 @@ export default function Home() {
         location={location}
         isOpen={isOpen}
         onClose={onClose}
+      />
+
+      <LoginModal
+        isOpen={isOpenLogin}
+        onClose={onCloseLogin}
       />
     </>
   );
