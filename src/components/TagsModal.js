@@ -40,7 +40,7 @@ export default function TagsModal({ isOpen, onClose }) {
       <ModalOverlay>
         <ModalContent>
         <ModalHeader bg="darkGreen"><Text as="h1" size="lg" color="white">Select tags</Text></ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color="white" />
           <ModalBody>
             <Flex
               mt="8px"

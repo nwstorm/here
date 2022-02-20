@@ -50,7 +50,7 @@ export default function CreatePostModal({ location, isOpen, onClose }) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader bg="darkGreen"><Text as="h1" size="lg" color="white">Leave an acorn</Text></ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton color="white" />
         <ModalBody>
           <Input
             onChange={(e) => setTitle(e.target.value)}
