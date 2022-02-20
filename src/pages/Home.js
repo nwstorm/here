@@ -10,6 +10,8 @@ import {
   useDisclosure,
   Stack,
   Button,
+  VStack,
+  Text,
 } from "@chakra-ui/react";
 import TagsModal from "../components/TagsModal";
 import React from "react";
@@ -18,6 +20,7 @@ import { AuthContext } from "../utils/auth";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenSettings,
@@ -26,6 +29,7 @@ export default function Home() {
   } = useDisclosure();
   const { auth, user, setUser } = useContext(AuthContext);
 
+  // Initialize geolocation tracking
   useEffect(() => {
     // Initialize geolocation tracking
     if (!navigator.geolocation) {
@@ -34,6 +38,7 @@ export default function Home() {
       console.log("Locating…");
       navigator.geolocation.watchPosition(
         (success) => {
+          setLoading(false);
           console.log(
             `Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`
           );
@@ -69,43 +74,67 @@ export default function Home() {
 
   return (
     <>
-      <Container maxWidth="90%">
-        {user && (
-          <>
-            <p>Phone number: {user.phoneNumber}</p>
-            <Button onClick={clickSignOut}>Sign out</Button>
-          </>
-        )}
-        {location && (
-          <Stack direction={["column", "row"]} spacing="24px">
-            <p>
-              Your location is {location.latitude}, {location.longitude}{" "}
-              (accuracy of {location.accuracy})
-            </p>
-            <IconButton
-              isRound
-              icon={<FontAwesomeIcon icon={faUserGear} />}
-              onClick={onOpenSettings}
-            />
-          </Stack>
-        )}
-        {location && (
-          <Box color="black">
-            <PostsList location={location} />
-          </Box>
-        )}
-      </Container>
-      <IconButton
-        isRound
-        size="lg"
-        pos="fixed"
-        right="2em"
-        bottom="2em"
-        icon={<FontAwesomeIcon icon={faPlus} />}
-        onClick={onOpen}
-      />
       <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
-      <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}
+      <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} /> ]
+      {loading ? (
+        <>
+          <VStack loading={loading} spacing={100} align="center">
+            <Text fontSize="32px" color="#319795">
+              Glad ur here!
+            </Text>
+            <Box bg="tomato" h="75%" w="75%" p={10}>
+              Insert animation here
+            </Box>
+            <Text fontSize="18px" color="#319795">
+              Collecting Acorns...
+            </Text>
+          </VStack>
+        </>
+      ) : (
+        <>
+          <Container maxWidth="90%">
+            {user && (
+              <>
+                <p>Phone number: {user.phoneNumber}</p>
+                <Button onClick={clickSignOut}>Sign out</Button>
+              </>
+            )}
+            {location && (
+              <Stack direction={["column", "row"]} spacing="24px">
+                <p>
+                  Your location is {location.latitude}, {location.longitude}{" "}
+                  (accuracy of {location.accuracy})
+                </p>
+                <IconButton
+                  isRound
+                  icon={<FontAwesomeIcon icon={faUserGear} />}
+                  onClick={onOpenSettings}
+                />
+              </Stack>
+            )}
+            {location && (
+              <Box color="black">
+                <PostsList location={location} />
+              </Box>
+            )}
+          </Container>
+          <IconButton
+            isRound
+            size="lg"
+            pos="fixed"
+            right="2em"
+            bottom="2em"
+            icon={<FontAwesomeIcon icon={faPlus} />}
+            onClick={onOpen}
+          />
+          <CreatePostModal
+            location={location}
+            isOpen={isOpen}
+            onClose={onClose}
+          />
+          <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}
+        </>
+      )}
     </>
   );
 }
