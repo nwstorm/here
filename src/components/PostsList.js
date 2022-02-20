@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 import { useEffect, useState } from "react";
-import { Badge, Box, Flex, Heading, useToast } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, Text, useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { getPosts, updatePost } from "../firebase";
@@ -90,13 +90,17 @@ export default function PostsList({ location }) {
               icon={faThumbsUp}
               onClick={() => upvotePost(post.id, post.upvoteCount)}
             />
-            　{post.upvoteCount} votes　
+            　{post.upvoteCount} votes
           </p>
           <Flex columnGap="4px" direction="row" flexWrap="wrap">
             {post.tags.map((tag) => (
               <Badge key={tag}>{tag}</Badge>
             ))}
           </Flex>
+          {post.creationTime && <Text>{post.creationTime}</Text>}
+          {/* <Text fontSize='xs'>{post.creationTime}</Text> */}
+          {/* var formattedDate = moment(date).format('YYYYMMDD'); */}
+
         </Box>
       );
     });
