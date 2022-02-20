@@ -12,6 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Text,
   Textarea,
 } from "@chakra-ui/react";
 import { addPost } from "../firebase";
@@ -45,20 +46,22 @@ export default function CreatePostModal({ location, isOpen, onClose }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom" size="full">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create a post</ModalHeader>
-        <ModalCloseButton />
+        <ModalHeader bg="darkGreen"><Text as="h1" size="lg" color="white">Leave an acorn</Text></ModalHeader>
+        <ModalCloseButton color="white" />
         <ModalBody>
           <Input
             onChange={(e) => setTitle(e.target.value)}
             placeholder={`Title`}
+            focusBorderColor="carrot"
           />
           <Textarea
             mt="8px"
             onChange={(e) => setDescription(e.target.value)}
             placeholder={`What's Happening?`}
+            focusBorderColor="carrot"
           />
           <Select mt="8px" placeholder="Select time" onChange={(e) => handleTime(e)}>
             <option value={1}>1 Hour</option>
@@ -67,11 +70,12 @@ export default function CreatePostModal({ location, isOpen, onClose }) {
             <option value={24}>1 Day</option>
             <option value={168}>1 Week</option>
           </Select>
-          <Flex mt="8px" columnGap={4} rowGap={2} direction='row' flexWrap="wrap">
+          <Flex  mt="8px" columnGap={4} rowGap={2} direction='row' flexWrap="wrap">
             {Object.entries(tags).map(entry => {
               const [name, value] = entry;
               return (
                 <Checkbox
+                colorScheme="green"
                   key={name}
                   isChecked={tags[name].checked}
                   onChange={() => {
@@ -95,7 +99,7 @@ export default function CreatePostModal({ location, isOpen, onClose }) {
           <Button variant="ghost" mr="16px" onClick={onClose}>
             Cancel
           </Button>
-          <Button colorScheme="blue" onClick={handleClick}>
+          <Button colorScheme="green" onClick={handleClick}>
             Post
           </Button>
         </ModalFooter>

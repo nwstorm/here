@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Route } from "wouter";
 import "./App.css";
 import Home from "./pages/Home";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import React from "react";
 import { AuthContext } from "./utils/auth";
 import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth"
@@ -14,10 +14,18 @@ setPersistence(auth, browserLocalPersistence)
   .catch(err => console.log(err))
 
 const theme = extendTheme({
+  colors: {
+    lightGreen: '#FBFFF1',
+    darkGreen: '#035B21',
+    carrot: '#FF6D1B',
+  },
   fonts: {
     heading: 'Recoleta, sans-serif',
     body: 'HK Grotesk, sans-serif',
   },
+  shadows: {
+    lg: "0 10px 15px -3px rgba(3, 91, 33, 0.1), 0 4px 6px -2px rgba(3, 91, 33, 0.05)",
+  }
 })
 
 function App() {
@@ -25,7 +33,7 @@ function App() {
   const value = { auth, user, setUser }
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <AuthContext.Provider value={value}>
         <Route path="/" component={Home} />
       </AuthContext.Provider>

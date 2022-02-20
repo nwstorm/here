@@ -1,11 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
-import { Box, Container, IconButton, useDisclosure, Text, VStack, Stack} from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Heading,
+  useDisclosure,
+  VStack,
+  Text,
+} from "@chakra-ui/react";
 import TagsModal from "../components/TagsModal";
-import {React} from "react";
+import React from "react";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
@@ -74,7 +81,7 @@ export default function Home() {
 
 return ( <>
   <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
-  <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}]
+  <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />
 
   {loading? <>
    <VStack loading={loading} spacing={100} align='center'>
@@ -82,37 +89,17 @@ return ( <>
     <Box bg='tomato' h='75%' w='75%' p={10}>Insert animation here</Box>
     <Text fontSize='18px' color="#319795" >Collecting Acorns...</Text>
     </VStack>
-  </> : <> 
-  <Container maxWidth="90%">
+  </> : <>
+  <Navbar createClick={onOpen} profileClick={onOpenSettings} />
+  <Container mt="1em" padding="0 0.5em" bg="lightGreen" minHeight="100vh">
     {location && (
-      <Stack direction={["column", "row"]} spacing="24px">
-        <p>
-          Your location is {location.latitude}, {location.longitude}{" "}
-          (accuracy of {location.accuracy})
-        </p>
-        <IconButton
-          isRound
-          icon={<FontAwesomeIcon icon={faUserGear} />}
-          onClick={onOpenSettings}
-        />
-      </Stack>
-    )}
-    {location && (
-      <Box color="black">
+      <Box>
+        <Heading as="h2" color="darkGreen" ml="10px" >Feed</Heading>
         <PostsList location={location} />
       </Box>
     )}
   </Container>
-  <IconButton
-    isRound
-    size="lg"
-    pos="fixed"
-    right="2em"
-    bottom="2em"
-    icon={<FontAwesomeIcon icon={faPlus} />}
-    onClick={onOpen}
-  />
   </>}
   </>
-    );
+);
 }
