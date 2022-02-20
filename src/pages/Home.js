@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
 import {
-  Box,
+  // Box,
   Container,
   useDisclosure,
   Heading,
@@ -100,17 +100,18 @@ export default function Home() {
           <Navbar createClick={onOpen} profileClick={onOpenSettings} />
           <Container
             mt="1em"
-            padding="0 0.5em"
+            margin="0 0 0 0"
+            padding="0.5em 0.5em"
             bg="lightGreen"
             minHeight="100vh"
           >
             {location && (
-              <Box>
+              <>
                 <Heading as="h2" color="darkGreen" ml="10px">
                   Feed
                 </Heading>
                 <PostsList location={location} />
-              </Box>
+              </>
             )}
           </Container>
         </>
