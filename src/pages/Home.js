@@ -6,6 +6,7 @@ import CreatePostModal from "../components/CreatePostModal";
 import {
   Box,
   Container,
+  Heading,
   IconButton,
   useDisclosure,
   Stack,
@@ -42,22 +43,17 @@ export default function Home() {
 
   return (
     <>
-      <Container maxWidth="90%">
+      <Container padding="0 0.5em" bg="lightGreen" minHeight="100vh">
+        <Stack direction={["column", "row"]} spacing="24px">
+          <IconButton
+            isRound
+            icon={<FontAwesomeIcon icon={faUserGear} />}
+            onClick={onOpenSettings}
+          />
+        </Stack>
         {location && (
-          <Stack direction={["column", "row"]} spacing="24px">
-            <p>
-              Your location is {location.latitude}, {location.longitude}{" "}
-              (accuracy of {location.accuracy})
-            </p>
-            <IconButton
-              isRound
-              icon={<FontAwesomeIcon icon={faUserGear} />}
-              onClick={onOpenSettings}
-            />
-          </Stack>
-        )}
-        {location && (
-          <Box color="black">
+          <Box>
+            <Heading as="h2" color="darkGreen" ml="10px" >Feed</Heading>
             <PostsList location={location} />
           </Box>
         )}
