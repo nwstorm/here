@@ -20,7 +20,7 @@ const theme = extendTheme({
     carrot: '#FF6D1B',
   },
   fonts: {
-    heading: 'Recoleta, sans-serif',
+    heading: 'HK Grotesk, sans-serif',
     body: 'HK Grotesk, sans-serif',
   },
   shadows: {
