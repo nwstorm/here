@@ -35,7 +35,7 @@ export default function Home() {
       console.log("Locating…");
       navigator.geolocation.watchPosition(
         (success) => {
-          setLoading(true);
+          setLoading(false);
           console.log(
             `Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`
           );
