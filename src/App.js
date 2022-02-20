@@ -13,6 +13,13 @@ setPersistence(auth, browserLocalPersistence)
   .then(res => console.log(res))
   .catch(err => console.log(err))
 
+const theme = extendTheme({
+  fonts: {
+    heading: 'Recoleta, sans-serif',
+    body: 'HK Grotesk, sans-serif',
+  },
+})
+
 function App() {
   const [user, setUser] = useState(null)
   const value = { auth, user, setUser }
