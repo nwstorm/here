@@ -85,26 +85,6 @@ export default function Home() {
           </Heading>
         </VStack>
       ) : (
-        // <>
-        //   <Navbar createClick={onOpen} profileClick={onOpenSettings} />
-        //   <Container
-        //     mt="1em"
-        //     margin="0 0 0 0"
-        //     padding="0.5em 0.5em"
-        //     bg="lightGreen"
-        //     minHeight="100vh"
-        //   >
-        //     {location && (
-        //       <Box justifyContent="center">
-        //         <Heading as="h2" color="darkGreen" ml="10px">
-        //           Feed
-        //         </Heading>
-        //         <PostsList location={location} />
-        //       </Box>
-        //     )}
-        //   </Container>
-        // </>
-
         <>
           <Navbar createClick={onOpen} profileClick={onOpenSettings} />
           <Container padding="1em" bg="lightGreen" minHeight="100vh">
