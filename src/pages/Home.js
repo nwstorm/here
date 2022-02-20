@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
 import {
+  Box,
   Container,
   useDisclosure,
   Heading,
@@ -57,17 +58,6 @@ export default function Home() {
     );
   }, []);
 
-  // const clickSignOut = () => {
-  //   signOut(auth)
-  //     .then(() => {
-  //       setUser(null);
-  //       console.log("Logged out successfully");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   return (
     <>
       <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
@@ -95,22 +85,36 @@ export default function Home() {
           </Heading>
         </VStack>
       ) : (
+        // <>
+        //   <Navbar createClick={onOpen} profileClick={onOpenSettings} />
+        //   <Container
+        //     mt="1em"
+        //     margin="0 0 0 0"
+        //     padding="0.5em 0.5em"
+        //     bg="lightGreen"
+        //     minHeight="100vh"
+        //   >
+        //     {location && (
+        //       <Box justifyContent="center">
+        //         <Heading as="h2" color="darkGreen" ml="10px">
+        //           Feed
+        //         </Heading>
+        //         <PostsList location={location} />
+        //       </Box>
+        //     )}
+        //   </Container>
+        // </>
+
         <>
           <Navbar createClick={onOpen} profileClick={onOpenSettings} />
-          <Container
-            mt="1em"
-            margin="0 0 0 0"
-            padding="0.5em 0.5em"
-            bg="lightGreen"
-            minHeight="100vh"
-          >
+          <Container padding="1em" bg="lightGreen" minHeight="100vh">
             {location && (
-              <>
+              <Box>
                 <Heading as="h2" color="darkGreen" ml="10px">
                   Feed
                 </Heading>
                 <PostsList location={location} />
-              </>
+              </Box>
             )}
           </Container>
         </>
