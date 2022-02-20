@@ -1,9 +1,11 @@
+/* eslint-disable no-irregular-whitespace */
 import { useEffect, useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { getPosts, updatePost } from "../firebase";
 import { getDistance } from "../utils/geoLocation";
+import React from "react";
 
 export default function PostsList({ location }) {
   const [posts, setPosts] = useState([]);

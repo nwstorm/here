@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
@@ -7,7 +8,6 @@ import {
   onSnapshot,
   query,
   doc,
-  setDoc,
   updateDoc,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use

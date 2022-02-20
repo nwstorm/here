@@ -13,6 +13,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { addPost } from "../firebase";
+import React from "react";
 
 export default function CreatePostModal({ location, isOpen, onClose }) {
   const [title, setTitle] = useState("");
