@@ -7,11 +7,11 @@ import {
   Box,
   Container,
   IconButton,
-  Stack,
   useDisclosure,
+  Stack,
 } from "@chakra-ui/react";
-import React from "react";
 import TagsModal from "../components/TagsModal";
+import React from "react";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
