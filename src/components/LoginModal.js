@@ -10,7 +10,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
+  // ModalFooter,
   ModalHeader,
   ModalOverlay,
   Input,
@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { AuthContext } from '../utils/auth';
 
-function SignUp() {
+function SignUp({ onClose }) {
   const [recaptcha, setRecaptcha] = useState(null);
   const element = useRef(null);
   const { auth } = useContext(AuthContext)
@@ -36,13 +36,13 @@ function SignUp() {
 
   return (
     <>
-      {recaptcha && <PhoneNumberVerification recaptcha={recaptcha} />}
+      {recaptcha && <PhoneNumberVerification recaptcha={recaptcha} onClose={onClose} />}
       <div ref={element}></div>
     </>
   );
 }
 
-function PhoneNumberVerification({ recaptcha }) {
+function PhoneNumberVerification({ recaptcha, onClose }) {
   const [phone, setPhone] = useState('')
   const [confirmationResult, setConfirmationResult] = useState(null)
   const [code, setCode] = useState('')
@@ -56,7 +56,10 @@ function PhoneNumberVerification({ recaptcha }) {
 
   const verifyCode = async () => {
     confirmationResult.confirm(code)
-      .then(result => setUser(result.user))
+      .then(result => { 
+        setUser(result.user)
+        onClose()
+      })
       .catch(error => console.log(error))
   };
 
@@ -64,7 +67,6 @@ function PhoneNumberVerification({ recaptcha }) {
     <>
       <Flex>
       <Input placeholder="(555) 555-5555" value={phone} onChange={(e) => setPhone(e.target.value)} />
-      {/* <Spacer /> */}
       <Button onClick={signIn}>Sign In</Button>
       </Flex>
 
@@ -80,9 +82,9 @@ function PhoneNumberVerification({ recaptcha }) {
 }
 
 export default function LoginModal({ isOpen, onClose }) {
-  const handleClick = () => {
-    onClose()
-  }
+  // const handleClick = () => {
+  //   onClose()
+  // }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -91,15 +93,15 @@ export default function LoginModal({ isOpen, onClose }) {
         <ModalHeader>Login</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <SignUp />
+          <SignUp onClose={} />
         </ModalBody>
 
-        <ModalFooter>
+        {/* <ModalFooter>
           <Button variant='ghost' mr="16px" onClick={onClose}>Cancel</Button>
           <Button colorScheme='blue' onClick={handleClick}>
             Post
           </Button>
-        </ModalFooter>
+        </ModalFooter> */}
       </ModalContent>
     </Modal>
   )
