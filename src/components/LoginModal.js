@@ -13,6 +13,9 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Input,
+  // Spacer,
+  Flex,
 } from '@chakra-ui/react'
 import { AuthContext } from '../utils/auth';
 
@@ -59,16 +62,17 @@ function PhoneNumberVerification({ recaptcha }) {
 
   return (
     <>
-      <input value={phone} onChange={(e) => setPhone(e.target.value)} />
-      <button onClick={signIn}>Sign In</button>
+      <Flex>
+      <Input placeholder="(555) 555-5555" value={phone} onChange={(e) => setPhone(e.target.value)} />
+      {/* <Spacer /> */}
+      <Button onClick={signIn}>Sign In</Button>
+      </Flex>
 
       {confirmationResult && (
         <div>
           <label>Verify code</label>
-          <br />
-          <input value={code} onChange={(e) => setCode(e.target.value)} />
-
-          <button onClick={verifyCode}>Verify Code</button>
+          <Input value={code} onChange={(e) => setCode(e.target.value)} />
+          <Button onClick={verifyCode}>Verify Code</Button>
         </div>
       )}
     </>
