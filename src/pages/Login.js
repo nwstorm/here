@@ -5,6 +5,8 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { Button, Input, Flex, VStack, Text, Heading } from "@chakra-ui/react";
 import { AuthContext } from "../utils/auth";
 import { Redirect } from "wouter";
+import squirrel from '../assests/squirrel.gif'
+import backgroundSvg from '../assests/home.svg'
 
 function SignUp() {
   const [recaptcha, setRecaptcha] = useState(null);
@@ -67,6 +69,8 @@ function PhoneNumberVerification({ recaptcha }) {
       <VStack>
         <Text>Phone number</Text>
         <Input
+          type="tel"
+          autoComplete="tel"
           placeholder="1234567890"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -85,7 +89,7 @@ function PhoneNumberVerification({ recaptcha }) {
       {confirmationResult && (
         <VStack>
           <Text>Please verify with the code sent to your phone</Text>
-          <Input value={code} onChange={(e) => setCode(e.target.value)} />
+          <Input type="number" autoComplete="one-time-code" value={code} onChange={(e) => setCode(e.target.value)} />
           <Button
             ml="8px"
             bg="darkGreen"
@@ -108,15 +112,19 @@ export default function Login() {
       minHeight="100vh"
       align="center"
       justifyContent="center"
+      backgroundImage={`url(${backgroundSvg})`}
+      backgroundSize="100% auto"
+      backgroundRepeat="no-repeat"
     >
       <Heading as="h4" size="sm" color="darkGreen">
         Welcome to:
       </Heading>
-      <Heading as="h1" size="xl" color="darkGreen">
+      <Heading as="h1" size="xl" color="darkGreen" fontFamily="Recoleta">
         Hereful
       </Heading>
 
-      {/* image */}
+      <img width="25%" src={squirrel} alt="squirrel in a wheelchair" />
+
       <SignUp />
       <Text>Terms & Conditions</Text>
     </VStack>

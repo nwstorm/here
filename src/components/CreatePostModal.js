@@ -63,7 +63,7 @@ export default function CreatePostModal({ location, isOpen, onClose }) {
             placeholder={`What's Happening?`}
             focusBorderColor="carrot"
           />
-          <Select mt="8px" placeholder="Select time" onChange={(e) => handleTime(e)}>
+          <Select mt="8px" placeholder="Choose expiry time" onChange={(e) => handleTime(e)}>
             <option value={1}>1 Hour</option>
             <option value={4}>4 Hours</option>
             <option value={12}>12 Hours</option>
