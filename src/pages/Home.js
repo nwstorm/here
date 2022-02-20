@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
 import {
-  // Box,
   Container,
   useDisclosure,
   Heading,
