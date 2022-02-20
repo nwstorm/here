@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Route } from "wouter";
 import "./App.css";
 import Home from "./pages/Home";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import { AuthContext } from "./utils/auth";
 import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth"
@@ -25,7 +25,7 @@ function App() {
   const value = { auth, user, setUser }
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
       <AuthContext.Provider value={value}>
         <Route path="/" component={Home} />
       </AuthContext.Provider>
