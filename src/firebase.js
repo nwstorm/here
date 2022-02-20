@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
@@ -6,6 +7,8 @@ import {
   getFirestore,
   onSnapshot,
   query,
+  doc,
+  updateDoc,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -33,17 +36,25 @@ export const getPosts = async (callback) => {
   return onSnapshot(q, (querySnapshot) => {
     const posts = [];
     querySnapshot.forEach((doc) => {
-      posts.push({...doc.data(), id: doc.id});
+      posts.push({ ...doc.data(), id: doc.id });
     });
-    callback(posts)
+    callback(posts);
   });
-}
+};
+
+export const updatePost = async (id, upvoteCount) => {
+  await updateDoc(doc(db, "posts", id), {
+    upvoteCount: upvoteCount,
+  });
+};
 
 // Add a post
-export const addPost = async (title, body, coords) => {
-  await addDoc(collection(db, 'posts'), {
+export const addPost = async (title, body, time, coords) => {
+  await addDoc(collection(db, "posts"), {
     title,
     body,
+    time,
     coords,
+    upvoteCount: 0,
   });
-}
+};

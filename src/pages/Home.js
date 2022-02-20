@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
 import LoginModal from "../components/LoginModal";
@@ -16,12 +16,13 @@ import {
   signOut,
 } from "firebase/auth";
 import { AuthContext } from "../utils/auth";
+import React from "react";
 
 export default function Home() {
-  const [location, setLocation] = useState([])
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { isOpen: isOpenLogin, onOpen: onOpenLogin, onClose: onCloseLogin } = useDisclosure()
-  const { auth, user, setUser } = useContext(AuthContext)
+  const [location, setLocation] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpenLogin, onOpen: onOpenLogin, onClose: onCloseLogin } = useDisclosure();
+  const { auth, user, setUser } = useContext(AuthContext);
 
   // Auth state change listener
   onAuthStateChanged(auth, (user) => {
@@ -31,7 +32,7 @@ export default function Home() {
       setUser(null)
     }
   });
-  
+
   // Initialize geolocation tracking
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -40,13 +41,15 @@ export default function Home() {
       console.log("Locating…");
       navigator.geolocation.watchPosition(
         (success) => {
-          console.log(`Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`)
-          setLocation(success.coords)
+          console.log(
+            `Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`
+          );
+          setLocation(success.coords);
         },
         (error) => console.log(error)
       );
     }
-  }, [])
+  }, []);
 
   const clickSignOut = () => {
     signOut(auth).then(() => {
@@ -66,13 +69,19 @@ export default function Home() {
             <p>Phone number: {user.phoneNumber}</p>
           </>
         : 
-          <Button onClick={onOpenLogin}>Login</Button>}
-        {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
-        {location &&
-          <Box color='black'>
+          <Button onClick={onOpenLogin}>Login</Button>
+        }
+        {location && (
+          <p>
+            Your location is {location.latitude}, {location.longitude} (accuracy
+            of {location.accuracy})
+          </p>
+        )}
+        {location && (
+          <Box color="black">
             <PostsList location={location} />
           </Box>
-        }
+        )}
       </Container>
 
       <IconButton
@@ -85,16 +94,9 @@ export default function Home() {
         onClick={onOpen}
       />
 
-      <CreatePostModal
-        location={location}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+      <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
 
-      <LoginModal
-        isOpen={isOpenLogin}
-        onClose={onCloseLogin}
-      />
+      <LoginModal isOpen={isOpenLogin} onClose={onCloseLogin}/>
     </>
   );
 }
