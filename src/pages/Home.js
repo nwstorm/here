@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
-import { Box, Container, IconButton, useDisclosure, Text, VStack} from "@chakra-ui/react";
+import { Box, Container, IconButton, useDisclosure, Text, VStack, Stack} from "@chakra-ui/react";
+import TagsModal from "../components/TagsModal";
 import React from "react";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
   const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenSettings,
+    onOpen: onOpenSettings,
+    onClose: onCloseSettings,
+  } = useDisclosure();
 
   // Initialize geolocation tracking
   useEffect(() => {
@@ -34,10 +40,17 @@ export default function Home() {
     <>
       <Container maxWidth="90%">
         {location && (
-          <p>
-            Your location is {location.latitude}, {location.longitude} (accuracy
-            of {location.accuracy})
-          </p>
+          <Stack direction={["column", "row"]} spacing="24px">
+            <p>
+              Your location is {location.latitude}, {location.longitude}{" "}
+              (accuracy of {location.accuracy})
+            </p>
+            <IconButton
+              isRound
+              icon={<FontAwesomeIcon icon={faUserGear} />}
+              onClick={onOpenSettings}
+            />
+          </Stack>
         )}
         {location && (
           <Box color="black">
@@ -45,7 +58,6 @@ export default function Home() {
           </Box>
         )}
       </Container>
-
       <IconButton
         isRound
         size="lg"
@@ -55,7 +67,6 @@ export default function Home() {
         icon={<FontAwesomeIcon icon={faPlus} />}
         onClick={onOpen}
       />
-
       <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
 
       <VStack loading={loading} spacing={100} align='center'>
@@ -63,6 +74,7 @@ export default function Home() {
         <Box bg='tomato' h='75%' w='75%' p={10}>Insert animation here</Box>
         <Text fontSize='18px' color="#319795" >Collecting Acorns...</Text>
       </VStack>
+      <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}
     </>
   );
 }
