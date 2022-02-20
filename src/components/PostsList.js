@@ -17,7 +17,7 @@ export default function PostsList({ location }) {
       title: post.title,
       description: post.body,
       position: "top-right",
-      status: "info",
+      status: "warning",
       duration: 9000,
       isClosable: true,
     });

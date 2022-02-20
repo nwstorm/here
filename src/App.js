@@ -17,6 +17,7 @@ const theme = extendTheme({
   colors: {
     lightGreen: '#FBFFF1',
     darkGreen: '#035B21',
+    carrot: '#FF6D1B',
   },
   fonts: {
     heading: 'Recoleta, sans-serif',

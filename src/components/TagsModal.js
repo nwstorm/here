@@ -9,6 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { TAGS } from "../constants";
@@ -35,10 +36,10 @@ export default function TagsModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom" size="full">
       <ModalOverlay>
         <ModalContent>
-          <ModalHeader>Select filters</ModalHeader>
+        <ModalHeader bg="darkGreen"><Text as="h1" size="lg" color="white">Select tags</Text></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex
@@ -63,6 +64,7 @@ export default function TagsModal({ isOpen, onClose }) {
                         },
                       });
                     }}
+                    colorScheme="green"
                   >
                     {value.name}
                   </Checkbox>

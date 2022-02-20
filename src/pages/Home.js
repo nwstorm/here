@@ -1,6 +1,5 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
 import {
@@ -9,10 +8,10 @@ import {
   Heading,
   IconButton,
   useDisclosure,
-  Stack,
 } from "@chakra-ui/react";
 import TagsModal from "../components/TagsModal";
 import React from "react";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
@@ -43,14 +42,9 @@ export default function Home() {
 
   return (
     <>
-      <Container padding="0 0.5em" bg="lightGreen" minHeight="100vh">
-        <Stack direction={["column", "row"]} spacing="24px">
-          <IconButton
-            isRound
-            icon={<FontAwesomeIcon icon={faUserGear} />}
-            onClick={onOpenSettings}
-          />
-        </Stack>
+      <Navbar createClick={onOpen} profileClick={onOpenSettings} />
+
+      <Container mt="1em" padding="0 0.5em" bg="lightGreen" minHeight="100vh">
         {location && (
           <Box>
             <Heading as="h2" color="darkGreen" ml="10px" >Feed</Heading>
@@ -58,17 +52,9 @@ export default function Home() {
           </Box>
         )}
       </Container>
-      <IconButton
-        isRound
-        size="lg"
-        pos="fixed"
-        right="2em"
-        bottom="2em"
-        icon={<FontAwesomeIcon icon={faPlus} />}
-        onClick={onOpen}
-      />
       <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
       <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}
     </>
+    
   );
 }
