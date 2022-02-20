@@ -72,47 +72,47 @@
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 100;
-  src: url('Recoleta-Thin.ttf') format('ttf');
+  src: url('Recoleta-Thin.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 300;
-  src: url('Recoleta-Light.ttf') format('ttf');
+  src: url('Recoleta-Light.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 400;
-  src: url('Recoleta-Regular.ttf') format('ttf');
+  src: url('Recoleta-Regular.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 500;
-  src: url('Recoleta-Medium.ttf') format('ttf');
+  src: url('Recoleta-Medium.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 600;
-  src: url('Recoleta-SemiBold.ttf') format('ttf');
+  src: url('Recoleta-SemiBold.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 700;
-  src: url('Recoleta-Bold.ttf') format('ttf');
+  src: url('Recoleta-Bold.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Recoleta';
   font-style: normal;
   font-weight: 900;
-  src: url('Recoleta-Black.ttf') format('ttf');
+  src: url('Recoleta-Black.woff') format('woff');
 }
