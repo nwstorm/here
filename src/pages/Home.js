@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
 import CreatePostModal from "../components/CreatePostModal";
 import {
@@ -8,14 +8,20 @@ import {
   Container,
   IconButton,
   useDisclosure,
-} from '@chakra-ui/react'
-
+  Stack,
+} from "@chakra-ui/react";
+import TagsModal from "../components/TagsModal";
+import React from "react";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenSettings,
+    onOpen: onOpenSettings,
+    onClose: onCloseSettings,
+  } = useDisclosure();
+
   // Initialize geolocation tracking
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -24,25 +30,38 @@ export default function Home() {
       console.log("Locating…");
       navigator.geolocation.watchPosition(
         (success) => {
-          console.log(`Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`)
-          setLocation(success.coords)
+          console.log(
+            `Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`
+          );
+          setLocation(success.coords);
         },
         (error) => console.log(error)
       );
     }
-  }, [])
+  }, []);
 
   return (
     <>
       <Container maxWidth="90%">
-        {location && <p>Your location is {location.latitude}, {location.longitude} (accuracy of {location.accuracy})</p>}
-        {location &&
-          <Box color='black'>
+        {location && (
+          <Stack direction={["column", "row"]} spacing="24px">
+            <p>
+              Your location is {location.latitude}, {location.longitude}{" "}
+              (accuracy of {location.accuracy})
+            </p>
+            <IconButton
+              isRound
+              icon={<FontAwesomeIcon icon={faUserGear} />}
+              onClick={onOpenSettings}
+            />
+          </Stack>
+        )}
+        {location && (
+          <Box color="black">
             <PostsList location={location} />
           </Box>
-        }
+        )}
       </Container>
-
       <IconButton
         isRound
         size="lg"
@@ -52,14 +71,8 @@ export default function Home() {
         icon={<FontAwesomeIcon icon={faPlus} />}
         onClick={onOpen}
       />
-
-      <CreatePostModal
-        location={location}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
-
-      
+      <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
+      <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />{" "}
     </>
   );
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 import { useEffect, useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { getPosts, updatePost } from "../firebase";
@@ -8,12 +8,52 @@ import { getDistance } from "../utils/geoLocation";
 import React from "react";
 
 export default function PostsList({ location }) {
+  const toast = useToast();
+  const toastIdRef = React.useRef();
   const [posts, setPosts] = useState([]);
+
+  const addToast = (post) => {
+    toastIdRef.current = toast({
+      title: post.title,
+      description: post.body,
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  };
 
   // Fetch and subscribe to posts
   useEffect(() => {
     getPosts((data) => {
       setPosts(data);
+
+      // Fetch tags and viewed posts from local and session storage
+      const saved = localStorage.getItem("tags");
+      const viewedPosts =
+        JSON.parse(sessionStorage.getItem("viewedPosts")) || [];
+      const selectedFilters = Object.values(JSON.parse(saved))
+        .filter((tag) => tag.checked == true)
+        .map((filter) => filter.name);
+
+      // Determine diff between new posts and viewed posts
+      const newPosts = data.filter(
+        ({ id: id1 }) => !viewedPosts.some(({ id: id2 }) => id2 === id1)
+      );
+
+      // Filter the posts by tags that the user wants to be notified for
+      const newPostsToNotify = newPosts.filter((post) =>
+        post.tags.some((tag) => selectedFilters.includes(tag))
+      );
+
+      // Create a toast for each post that should create a notification
+      newPostsToNotify.map((post) => addToast(post));
+
+      // Combine previously viewed and new posts to notify into an array
+      // Persist combined array to session storage
+      sessionStorage.setItem(
+        "viewedPosts",
+        JSON.stringify([...newPostsToNotify, ...viewedPosts])
+      );
     });
   }, []);
 
@@ -25,9 +65,7 @@ export default function PostsList({ location }) {
   };
 
   const upvotePost = (id, upvoteCount) => {
-    console.log(id);
     upvoteCount += 1;
-    console.log(upvoteCount);
     updatePost(id, upvoteCount);
   };
 
@@ -54,6 +92,11 @@ export default function PostsList({ location }) {
             />
             　{post.upvoteCount} votes　
           </p>
+          <Flex columnGap="4px" direction="row" flexWrap="wrap">
+            {post.tags.map((tag) => (
+              <Badge key={tag}>{tag}</Badge>
+            ))}
+          </Flex>
         </Box>
       );
     });
