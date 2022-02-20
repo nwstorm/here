@@ -1,34 +1,33 @@
-import React from 'react';
-import { useEffect, useState, useRef, useContext } from 'react'
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from 'firebase/auth'
+import React from "react";
+import { useEffect, useState, useRef, useContext } from "react";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import {
   Button,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  // ModalFooter,
   ModalHeader,
   ModalOverlay,
   Input,
-  // Spacer,
   Flex,
-} from '@chakra-ui/react'
-import { AuthContext } from '../utils/auth';
+} from "@chakra-ui/react";
+import { AuthContext } from "../utils/auth";
 
 function SignUp({ onClose }) {
   const [recaptcha, setRecaptcha] = useState(null);
   const element = useRef(null);
-  const { auth } = useContext(AuthContext)
+  const { auth } = useContext(AuthContext);
 
   useEffect(() => {
     if (!recaptcha) {
-      const verifier = new RecaptchaVerifier(element.current, {
-        size: 'invisible',
-      }, auth)
+      const verifier = new RecaptchaVerifier(
+        element.current,
+        {
+          size: "invisible",
+        },
+        auth
+      );
 
       verifier.verify().then(() => setRecaptcha(verifier));
     }
@@ -36,38 +35,47 @@ function SignUp({ onClose }) {
 
   return (
     <>
-      {recaptcha && <PhoneNumberVerification recaptcha={recaptcha} onClose={onClose} />}
+      {recaptcha && (
+        <PhoneNumberVerification recaptcha={recaptcha} onClose={onClose} />
+      )}
       <div ref={element}></div>
     </>
   );
 }
 
 function PhoneNumberVerification({ recaptcha, onClose }) {
-  const [phone, setPhone] = useState('')
-  const [confirmationResult, setConfirmationResult] = useState(null)
-  const [code, setCode] = useState('')
-  const { auth, setUser } = useContext(AuthContext)
+  const [phone, setPhone] = useState("");
+  const [confirmationResult, setConfirmationResult] = useState(null);
+  const [code, setCode] = useState("");
+  const { auth, setUser } = useContext(AuthContext);
 
   const phoneNumber = `+1${phone}`;
 
   const signIn = async () => {
-    setConfirmationResult(await signInWithPhoneNumber(auth, phoneNumber, recaptcha));
+    setConfirmationResult(
+      await signInWithPhoneNumber(auth, phoneNumber, recaptcha)
+    );
   };
 
   const verifyCode = async () => {
-    confirmationResult.confirm(code)
-      .then(result => { 
-        setUser(result.user)
-        onClose()
+    confirmationResult
+      .confirm(code)
+      .then((result) => {
+        setUser(result.user);
+        onClose();
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error));
   };
 
   return (
     <>
       <Flex>
-      <Input placeholder="(555) 555-5555" value={phone} onChange={(e) => setPhone(e.target.value)} />
-      <Button onClick={signIn}>Sign In</Button>
+        <Input
+          placeholder="(555) 555-5555"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        <Button onClick={signIn}>Sign In</Button>
       </Flex>
 
       {confirmationResult && (
@@ -78,7 +86,7 @@ function PhoneNumberVerification({ recaptcha, onClose }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
 export default function LoginModal({ isOpen, onClose }) {
@@ -93,16 +101,9 @@ export default function LoginModal({ isOpen, onClose }) {
         <ModalHeader>Login</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <SignUp onClose={} />
+          <SignUp onClose={onClose} />
         </ModalBody>
-
-        {/* <ModalFooter>
-          <Button variant='ghost' mr="16px" onClick={onClose}>Cancel</Button>
-          <Button colorScheme='blue' onClick={handleClick}>
-            Post
-          </Button>
-        </ModalFooter> */}
       </ModalContent>
     </Modal>
-  )
+  );
 }
