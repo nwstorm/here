@@ -6,6 +6,9 @@ import {
   getFirestore,
   onSnapshot,
   query,
+  doc,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -39,6 +42,12 @@ export const getPosts = async (callback) => {
   });
 };
 
+export const updatePost = async (id, upvoteCount) => {
+  await updateDoc(doc(db, "posts", id), {
+    upvoteCount: upvoteCount,
+  });
+};
+
 // Add a post
 export const addPost = async (title, body, time, coords) => {
   await addDoc(collection(db, "posts"), {
@@ -46,5 +55,6 @@ export const addPost = async (title, body, time, coords) => {
     body,
     time,
     coords,
+    upvoteCount: 0,
   });
 };

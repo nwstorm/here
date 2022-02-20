@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { getPosts } from "../firebase";
+import { faLocationDot, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { getPosts, updatePost } from "../firebase";
 import { getDistance } from "../utils/geoLocation";
 
 export default function PostsList({ location }) {
@@ -11,9 +11,6 @@ export default function PostsList({ location }) {
   // Fetch and subscribe to posts
   useEffect(() => {
     getPosts((data) => {
-      data.sort((a, b) => {
-        return a.time > b.time;
-      });
       setPosts(data);
     });
   }, []);
@@ -23,6 +20,13 @@ export default function PostsList({ location }) {
       { lat: postCoords.lat, lon: postCoords.lon },
       { lat: location.latitude, lon: location.longitude }
     ).toFixed(2);
+  };
+
+  const upvotePost = (id, upvoteCount) => {
+    console.log(id);
+    upvoteCount += 1;
+    console.log(upvoteCount);
+    updatePost(id, upvoteCount);
   };
 
   const listItems = posts
@@ -40,6 +44,13 @@ export default function PostsList({ location }) {
           </p>
           <p>
             <FontAwesomeIcon icon={faLocationDot} />　{distance(post.coords)}m
+          </p>
+          <p>
+            <FontAwesomeIcon
+              icon={faThumbsUp}
+              onClick={() => upvotePost(post.id, post.upvoteCount)}
+            />
+            　{post.upvoteCount} votes　
           </p>
         </Box>
       );
