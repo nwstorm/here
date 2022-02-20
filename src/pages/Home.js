@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import PostsList from "../components/PostsList";
@@ -9,9 +9,12 @@ import {
   IconButton,
   useDisclosure,
   Stack,
+  Button,
 } from "@chakra-ui/react";
 import TagsModal from "../components/TagsModal";
 import React from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { AuthContext } from "../utils/auth";
 
 export default function Home() {
   const [location, setLocation] = useState([]);
@@ -21,9 +24,10 @@ export default function Home() {
     onOpen: onOpenSettings,
     onClose: onCloseSettings,
   } = useDisclosure();
+  const { auth, user, setUser } = useContext(AuthContext);
 
-  // Initialize geolocation tracking
   useEffect(() => {
+    // Initialize geolocation tracking
     if (!navigator.geolocation) {
       console.log("Geolocation is not supported by your browser");
     } else {
@@ -38,11 +42,40 @@ export default function Home() {
         (error) => console.log(error)
       );
     }
+
+    // Add listener to see if auth state changes
+    onAuthStateChanged(
+      auth,
+      (user) => {
+        console.log("Setting user");
+        setUser(user);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }, []);
+
+  const clickSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        console.log("Logged out successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <Container maxWidth="90%">
+        {user && (
+          <>
+            <p>Phone number: {user.phoneNumber}</p>
+            <Button onClick={clickSignOut}>Sign out</Button>
+          </>
+        )}
         {location && (
           <Stack direction={["column", "row"]} spacing="24px">
             <p>
