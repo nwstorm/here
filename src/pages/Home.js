@@ -7,7 +7,7 @@ import {
   useDisclosure,
   Heading,
   VStack,
-  Text,
+  Spinner,
 } from "@chakra-ui/react";
 import TagsModal from "../components/TagsModal";
 import React from "react";
@@ -35,7 +35,7 @@ export default function Home() {
       console.log("Locating…");
       navigator.geolocation.watchPosition(
         (success) => {
-          setLoading(false);
+          setLoading(true);
           console.log(
             `Your location is ${success.coords.latitude}, ${success.coords.longitude} (accuracy of ${success.coords.accuracy})`
           );
@@ -74,19 +74,27 @@ export default function Home() {
       <CreatePostModal location={location} isOpen={isOpen} onClose={onClose} />
       <TagsModal isOpen={isOpenSettings} onClose={onCloseSettings} />
       {loading ? (
-        <>
-          <VStack loading={loading} spacing={100} align="center">
-            <Text fontSize="32px" color="#319795">
-              Glad ur here!
-            </Text>
-            <Box bg="tomato" h="75%" w="75%" p={10}>
-              Insert animation here
-            </Box>
-            <Text fontSize="18px" color="#319795">
-              Collecting Acorns...
-            </Text>
-          </VStack>
-        </>
+        <VStack
+          loading={loading}
+          align="center"
+          justifyContent="center"
+          bg="lightGreen"
+          minHeight="100vh"
+        >
+          <Heading color="darkGreen" fontSize="32px">
+            Glad you are here!
+          </Heading>
+          <Spinner
+            color="carrot"
+            size="xl"
+            emptyColor="darkGreen"
+            speed="1s"
+            thickness="6px"
+          />
+          <Heading color="darkGreen" fontSize="18px">
+            Collecting Acorns...
+          </Heading>
+        </VStack>
       ) : (
         <>
           <Navbar createClick={onOpen} profileClick={onOpenSettings} />
