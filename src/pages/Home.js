@@ -61,7 +61,7 @@ export default function Home() {
       <VStack loading={loading} spacing={100} align='center'>
         <Text fontSize='32px' color="#319795">Glad ur here!</Text>
         <Box bg='tomato' h='75%' w='75%' p={10}>Insert animation here</Box>
-        <Text fontSize='18px' color="#319795" >Creating Acorns here</Text>
+        <Text fontSize='18px' color="#319795" >Collecting Acorns...</Text>
       </VStack>
     </>
   );
