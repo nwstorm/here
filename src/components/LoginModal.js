@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState, useRef, useContext } from 'react'
 import {
   RecaptchaVerifier,
@@ -28,7 +29,6 @@ function SignUp() {
 
       verifier.verify().then(() => setRecaptcha(verifier));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
