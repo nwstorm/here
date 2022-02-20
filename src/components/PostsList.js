@@ -16,7 +16,8 @@ export default function PostsList({ location }) {
     toastIdRef.current = toast({
       title: post.title,
       description: post.body,
-      status: "success",
+      position: "top-right",
+      status: "info",
       duration: 9000,
       isClosable: true,
     });
@@ -97,10 +98,7 @@ export default function PostsList({ location }) {
               <Badge key={tag}>{tag}</Badge>
             ))}
           </Flex>
-          {post.creationTime && <Text>{post.creationTime}</Text>}
-          {/* <Text fontSize='xs'>{post.creationTime}</Text> */}
-          {/* var formattedDate = moment(date).format('YYYYMMDD'); */}
-
+          <Text>{post.creationTime}</Text>
         </Box>
       );
     });
